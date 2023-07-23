@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="./app.js"></script>
+    <style>
+        table {
+          border-collapse: collapse;
+        }
+      
+        td {
+          border: 1px solid #000;
+          width: 30px;
+          height: 30px;
+          text-align: center;
+          font-size: 18px;
+          font-weight: bold;
+          background-color: #fff;
+        }
+      
+        td:nth-child(3n),
+        td:nth-child(6n) {
+          border-right-width: 2px;
+        }
+      
+        tr:nth-child(3n) td {
+          border-bottom-width: 2px;
+        }
+        .frozen-cell {
+  position: sticky;
+  left: 0;
+  background-color: #f2f2f2;
+  /* Additional styling properties for the frozen cell */
+}
+      </style>
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUDOKO with DIVA</title>
+ 
+</head>
+
+<body>
+    
+    <div>
+        <h1>Solve Sudoko with DIVA</h1>
+    </div>
+
+    <div>
+        <div>
+            <button  onclick="difficultyLevelSelection(this.id)" >Easy</button>
+            <button  onclick="difficultyLevelSelection(this.id)" >Medium</button>
+            <button  onclick="difficultyLevelSelection(this.id)" >Hard</button>
+            <button  onclick="difficultyLevelSelection(this.id)" >Monster</button>
+        </div>
+       
+        <div>
+            Timer :
+            <!-- <img src="./images/timer.png" alt="timer" style="width:1opx"> -->
+            <span>00:00:00</span>
+        </div>
+
+        <div>
+            <button onclick="solvedSudoku()">Solve</button>
+            <button>Reset</button>
+        </div>
+
+
+    </div>
+
+    <div >
+        <table id="GridTable">
+
+            <tr id="row0">
+                <td id="row0_col1" onclick="SetRowColumn(this.id)"></td>
+                <td id="row0_col2" onclick="SetRowColumn(this.id)"></td>
+                <td id="row0_col3" onclick="SetRowColumn(this.id)"></td>
+                <td id="row0_col4" onclick="SetRowColumn(this.id)"></td>
+                <td id="row0_col5" onclick="SetRowColumn(this.id)"></td>
+                <td id="row0_col6" onclick="SetRowColumn(this.id)"></td>
+                <td id="row0_col7" onclick="SetRowColumn(this.id)"></td>
+                <td id="row0_col8" onclick="SetRowColumn(this.id)"></td>
+                <td id="row0_col9" onclick="SetRowColumn(this.id)"></td>
+            </tr>
+            <tr id="row1">
+                <td id="row1_col1" onclick="SetRowColumn(this.id)" ></td>
+                <td id="row1_col2" onclick="SetRowColumn(this.id)" ></td>
+                <td id="row1_col3" onclick="SetRowColumn(this.id)" ></td>
+                <td id="row1_col4" onclick="SetRowColumn(this.id)" ></td>
+                <td id="row1_col5" onclick="SetRowColumn(this.id)" ></td>
+                <td id="row1_col6" onclick="SetRowColumn(this.id)" ></td>
+                <td id="row1_col7" onclick="SetRowColumn(this.id)" ></td>
+                <td id="row1_col8" onclick="SetRowColumn(this.id)" ></td>
+                <td id="row1_col9" onclick="SetRowColumn(this.id)" ></td>
+            </tr>
+            <tr id="row2">
+                <td id="row2_col1" onclick="SetRowColumn(this.id)" ></td>
+                <td id="row2_col2" onclick="SetRowColumn(this.id)" ></td>
+                <td id="row2_col3" onclick="SetRowColumn(this.id)" ></td>
+                <td id="row2_col4" onclick="SetRowColumn(this.id)" ></td>
+                <td id="row2_col5" onclick="SetRowColumn(this.id)"></td>
+                <td id="row2_col6" onclick="SetRowColumn(this.id)"></td>
+                <td id="row2_col7" onclick="SetRowColumn(this.id)"></td>
+                <td id="row2_col8" onclick="SetRowColumn(this.id)"></td>
+                <td id="row2_col9" onclick="SetRowColumn(this.id)"></td>
+            </tr>
+            <tr id="row3">
+                <td id="row3_col1" onclick="SetRowColumn(this.id)"></td>
+                <td id="row3_col2" onclick="SetRowColumn(this.id)"></td>
+                <td id="row3_col3" onclick="SetRowColumn(this.id)"></td>
+                <td id="row3_col4" onclick="SetRowColumn(this.id)"></td>
+                <td id="row3_col5" onclick="SetRowColumn(this.id)"></td>
+                <td id="row3_col6" onclick="SetRowColumn(this.id)"></td>
+                <td id="row3_col7" onclick="SetRowColumn(this.id)"></td>
+                <td id="row3_col8" onclick="SetRowColumn(this.id)"></td>
+                <td id="row3_col9" onclick="SetRowColumn(this.id)"></td>
+            </tr>
+            <tr id="row4">
+                <td id="row4_col1" onclick="SetRowColumn(this.id)"></td>
+                <td id="row4_col2" onclick="SetRowColumn(this.id)"></td>
+                <td id="row4_col3" onclick="SetRowColumn(this.id)"></td>
+                <td id="row4_col4" onclick="SetRowColumn(this.id)"></td>
+                <td id="row4_col5" onclick="SetRowColumn(this.id)"></td>
+                <td id="row4_col6" onclick="SetRowColumn(this.id)"></td>
+                <td id="row4_col7" onclick="SetRowColumn(this.id)"></td>
+                <td id="row4_col8" onclick="SetRowColumn(this.id)"></td>
+                <td id="row4_col9" onclick="SetRowColumn(this.id)"></td>
+            </tr>
+            <tr id="row5">
+                <td id="row5_col1" onclick="SetRowColumn(this.id)"></td>
+                <td id="row5_col2" onclick="SetRowColumn(this.id)"></td>
+                <td id="row5_col3" onclick="SetRowColumn(this.id)"></td>
+                <td id="row5_col4" onclick="SetRowColumn(this.id)"></td>
+                <td id="row5_col5" onclick="SetRowColumn(this.id)"></td>
+                <td id="row5_col6" onclick="SetRowColumn(this.id)"></td>
+                <td id="row5_col7" onclick="SetRowColumn(this.id)"></td>
+                <td id="row5_col8" onclick="SetRowColumn(this.id)"></td>
+                <td id="row5_col9" onclick="SetRowColumn(this.id)"></td>
+            </tr>
+            <tr id="row6">
+                <td id="row6_col1" onclick="SetRowColumn(this.id)"></td>
+                <td id="row6_col2" onclick="SetRowColumn(this.id)"></td>
+                <td id="row6_col3" onclick="SetRowColumn(this.id)"></td>
+                <td id="row6_col4" onclick="SetRowColumn(this.id)"></td>
+                <td id="row6_col5" onclick="SetRowColumn(this.id)"></td>
+                <td id="row6_col6" onclick="SetRowColumn(this.id)"></td>
+                <td id="row6_col7" onclick="SetRowColumn(this.id)"></td>
+                <td id="row6_col8" onclick="SetRowColumn(this.id)"></td>
+                <td id="row6_col9" onclick="SetRowColumn(this.id)"></td>
+            </tr>
+            <tr id="row7">
+                <td id="row7_col1" onclick="SetRowColumn(this.id)"></td>
+                <td id="row7_col2" onclick="SetRowColumn(this.id)"></td>
+                <td id="row7_col3" onclick="SetRowColumn(this.id)"></td>
+                <td id="row7_col4" onclick="SetRowColumn(this.id)"></td>
+                <td id="row7_col5" onclick="SetRowColumn(this.id)"></td>
+                <td id="row7_col6" onclick="SetRowColumn(this.id)"></td>
+                <td id="row7_col7" onclick="SetRowColumn(this.id)"></td>
+                <td id="row7_col8" onclick="SetRowColumn(this.id)"></td>
+                <td id="row7_col9" onclick="SetRowColumn(this.id)"></td>
+            </tr>
+            <tr id="row8">
+                <td id="row8_col1" onclick="SetRowColumn(this.id)"></td>
+                <td id="row8_col2" onclick="SetRowColumn(this.id)"></td>
+                <td id="row8_col3" onclick="SetRowColumn(this.id)"></td>
+                <td id="row8_col4" onclick="SetRowColumn(this.id)"></td>
+                <td id="row8_col5" onclick="SetRowColumn(this.id)"></td>
+                <td id="row8_col6" onclick="SetRowColumn(this.id)"></td>
+                <td id="row8_col7" onclick="SetRowColumn(this.id)"></td>
+                <td id="row8_col8" onclick="SetRowColumn(this.id)"></td>
+                <td id="row8_col9" onclick="SetRowColumn(this.id)"></td>
+            </tr>
+            <!-- <tr id="row9">
+                <td id="row8_col1"></td>
+                <td id="row8_col2"></td>
+                <td id="row8_col3"></td>
+                <td id="row8_col4"></td>
+                <td id="row8_col5"></td>
+                <td id="row8_col6"></td>
+                <td id="row8_col7"></td>
+                <td id="row8_col8"></td>
+                <td id="row8_col9"></td>
+            </tr> -->
+        </table>
+    </div>
+
+
+    <div>
+        <br>
+        <br>
+    </div>
+    <div>
+        <table id="ChoicePickkingTable" class="bordered-table">
+            <tr> 
+                <tr>
+                    <td id="Selected_value_1" onclick="SetSelectedValue(this.id)" >1</td>
+                    <td id="Selected_value_2" onclick="SetSelectedValue(this.id)" >2</td>
+                    <td id="Selected_value_3" onclick="SetSelectedValue(this.id)" >3</td>
+                    <td id="Selected_value_4" onclick="SetSelectedValue(this.id)" >4</td>
+                    <td id="Selected_value_5" onclick="SetSelectedValue(this.id)" >5</td>
+                    <td id="Selected_value_6" onclick="SetSelectedValue(this.id)" >6</td>
+                    <td id="Selected_value_7" onclick="SetSelectedValue(this.id)" >7</td>
+                    <td id="Selected_value_8" onclick="SetSelectedValue(this.id)" >8</td>
+                    <td id="Selected_value_9" onclick="SetSelectedValue(this.id)" >9</td>
+                </tr>
+            </tr>
+        </table>
+    </div>
+   
+</body>
+</html>
